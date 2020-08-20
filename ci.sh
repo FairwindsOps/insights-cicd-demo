@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1003
-set -ex
+set -e
+
+version=0.0.2
+image_version=0.4
 
 # Based on https://gist.github.com/pkuczynski/8665367
 # https://github.com/jasperes/bash-yaml MIT license
@@ -55,23 +58,31 @@ create_variables() {
 
 create_variables fairwinds-insights.yaml fairwinds_
 
+fairwinds_images_folder=${fairwinds_images_folder:='./_insightsTempImages'}
+
 mkdir -p $fairwinds_images_folder
-mkdir -p $fairwinds_manifests_folder
-mkdir -p $fairwinds_options_tempFolder
-mkdir -p $(dirname $fairwinds_options_junitOutput)
-mkdir -p $(dirname $fairwinds_options_junitOutput)
 for img in ${fairwinds_images_docker[@]}; do
     echo $img
-    docker save $img -o $fairwinds_images_folder/$(basename $img | sed -e 's/[^a-zA-Z0-9]//g').tar
+    if [[ "$img" != "[]" && "$img" != "" ]]
+    then
+        docker save $img -o $fairwinds_images_folder/$(basename $img | sed -e 's/[^a-zA-Z0-9]//g').tar
+    fi
 done
 
-docker create --name insights-ci -e FAIRWINDS_TOKEN=$FAIRWINDS_TOKEN quay.io/fairwinds/insights-ci:0.2
+docker create --name insights-ci \
+  -e FAIRWINDS_TOKEN=$FAIRWINDS_TOKEN \
+  -e SCRIPT_VERSION=$version \
+  quay.io/fairwinds/insights-ci:$image_version
+
 docker cp . insights-ci:/insights
 failed=0
 docker start -a insights-ci || failed=1
-#docker cp insights-ci:/insights/$fairwinds_options_junitOutput $fairwinds_options_junitOutput
+
+if [[ "$fairwinds_options_junitOutput" != "" ]]
+then
+    docker cp insights-ci:/insights/$fairwinds_options_junitOutput $fairwinds_options_junitOutput
+fi
 docker rm insights-ci
 if [ "$failed" -eq "1" ]; then
     exit 1
 fi
-
