@@ -1,11 +1,10 @@
 options:
-  organization: personal
-  repositoryName: FairwindsOps/sap-demo
+  organization: 0820
+  repositoryName: FairwindsOps/insights-cicd-test
   tempFolder: ./temp/insights
   junitOutput: ./temp/junit
-  newActionItemThreshold: 1
   setExitCode: false
-  hostname: https://insights.fairwinds.com
+  hostname: https://staging.insights.fairwinds.com
 
 # These images will be scanned for vulnerabilities.
 # Images contained in manifests below will automatically be tested
