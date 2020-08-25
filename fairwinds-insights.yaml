@@ -1,10 +1,9 @@
 options:
-  organization: 0820
+  organization: sales-demo
   repositoryName: FairwindsOps/insights-cicd-test
   tempFolder: ./temp/insights
   junitOutput: ./temp/junit
   setExitCode: false
-  hostname: https://staging.insights.fairwinds.com
 
 # These images will be scanned for vulnerabilities.
 # Images contained in manifests below will automatically be tested
