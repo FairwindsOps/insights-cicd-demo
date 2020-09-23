@@ -1,6 +1,5 @@
 options:
   organization: sales-demo
-  repositoryName: FairwindsOps/insights-cicd-test
   setExitCode: false
 
 images:
