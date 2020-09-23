@@ -1,27 +1,18 @@
 options:
   organization: sales-demo
   repositoryName: FairwindsOps/insights-cicd-test
-  tempFolder: ./temp/insights
-  junitOutput: ./temp/junit
   setExitCode: false
 
-# These images will be scanned for vulnerabilities.
-# Images contained in manifests below will automatically be tested
 images:
-  folder: ./temp/images
   docker:
-    - alpine:3.10.0
+    - demo-image
 
-# These manifests will be scanned for configuration issues.
 manifests:
-  folder: ./temp/manifests
   yaml:
     - ./passing.yaml
     - ./failing.yaml
   helm:
-    # List out any helm charts to template and check
     - name: staging
       path: ./chart/
-      # The values to use when templating
       variableFile: ./chart/values.yaml
 
