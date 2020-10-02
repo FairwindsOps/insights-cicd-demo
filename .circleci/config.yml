@@ -22,7 +22,7 @@ jobs:
             docker build -t demo-image .
       - run:
           name: Insights CI
-          command: curl https://insights.fairwinds.com/v0/insights-ci.sh | bash
+          command: ./insights-ci.sh
 
 
 workflows:
