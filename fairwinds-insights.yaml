@@ -1,10 +1,6 @@
 options:
-  organization: sales-demo
-  setExitCode: false
-
-images:
-  docker:
-    - demo-image
+  organization: 0401
+  hostname: https://staging.insights.fairwinds.com
 
 manifests:
   yaml:
