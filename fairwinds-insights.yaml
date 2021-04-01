@@ -1,7 +1,6 @@
 options:
   organization: 0401
   hostname: https://staging.insights.fairwinds.com
-  repositoryName: foobar0401
 
 manifests:
   yaml:
