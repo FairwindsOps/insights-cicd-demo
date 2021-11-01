@@ -8,7 +8,15 @@ manifests:
     - ./passing.yaml
     - ./failing.yaml
   helm:
+    # List out any helm charts to template and check
     - name: staging
       path: ./chart/
-      variableFile: ./chart/values.yaml
-
+      valuesFile: ./chart/values.yaml
+    - name: nginx-remote
+      chart: nginx-ingress
+      repo: https://helm.nginx.com/stable
+      values:
+        foo: bar
+    - name: nginx-fluxfile
+      fluxFile: ./nginx-flux-file.yaml
+      repo: https://helm.nginx.com/stable
